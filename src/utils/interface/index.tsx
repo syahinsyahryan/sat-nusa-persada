@@ -70,3 +70,11 @@ export interface TableContentProps {
   icon: string;
   color?: string;
 }
+export interface ErrorType {
+  message: string;
+}
+export interface UseUsersResult {
+  users: User[] | null;
+  loading: boolean;
+  error: string | null;
+}

@@ -1,30 +1,43 @@
-import axios from "axios";
-
-// interfaces
+import axios, { AxiosResponse } from "axios";
 import { User } from "../utils/interface";
 
 const urlEndPoint = "https://jsonplaceholder.typicode.com";
+const userURL = `${urlEndPoint}/users`;
 
-export const getUserAPI = async () => {
-  const url = `${urlEndPoint}/users`;
-  const response = await axios.get(url);
-  return response;
+export const getUser = async (): Promise<AxiosResponse<User[]>> => {
+  try {
+    const response = await axios.get<User[]>(userURL);
+    return response;
+  } catch (error) {
+    throw new Error("Failed to fetch users. Please try again later.");
+  }
 };
 
-export const insertUser = async (payload: User) => {
-  const url = `${urlEndPoint}/users`;
-  const response = await axios.post(url, payload);
-  return response;
+export const insertUser = async (
+  payload: User
+): Promise<AxiosResponse<User>> => {
+  try {
+    const response = await axios.post<User>(userURL, payload);
+    return response;
+  } catch (error) {
+    throw new Error("Failed to insert user. Please try again later.");
+  }
 };
 
-export const editUser = async (payload: User) => {
-  const url = `${urlEndPoint}/users/${payload.id}`;
-  const response = await axios.put(url, payload);
-  return response;
+export const editUser = async (payload: User): Promise<AxiosResponse<User>> => {
+  try {
+    const response = await axios.put<User>(`${userURL}/${payload.id}`, payload);
+    return response;
+  } catch (error) {
+    throw new Error("Failed to edit user. Please try again later.");
+  }
 };
 
-export const deleteUser = async (id: number) => {
-  const url = `${urlEndPoint}/users/${id}`;
-  const response = await axios.delete(url);
-  return response;
+export const deleteUser = async (id: number): Promise<AxiosResponse<void>> => {
+  try {
+    const response = await axios.delete<void>(`${userURL}/${id}`);
+    return response;
+  } catch (error) {
+    throw new Error("Failed to delete user. Please try again later.");
+  }
 };

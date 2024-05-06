@@ -1,29 +1,14 @@
 import { useEffect, useState } from "react";
-import { getUserAPI } from "@/api";
-import { UseUsersResult, User } from "@/utils/interface";
+import { insertUser } from "@/api";
+import { User } from "@/utils/interface";
 import { AxiosResponse } from "axios";
 
-export const useGetUsers = (): UseUsersResult => {
-  const [users, setUsers] = useState<User[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response: AxiosResponse<User[]> = await getUserAPI();
-        setUsers(response.data);
-      } catch (error) {
-        setError("Failed to fetch users. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  return { users, loading, error };
+export const useInsertUser = (): ((payload: User) => Promise<void>) => {
+  return async (payload: User) => {
+    try {
+      await insertUser(payload);
+    } catch (error) {
+      throw new Error("Failed to insert user. Please try again later.");
+    }
+  };
 };

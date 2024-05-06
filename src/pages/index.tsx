@@ -7,6 +7,7 @@ import { User } from "@/utils/interface";
 
 export default function Home() {
   const { users, loading, error } = useGetUsers();
+  console.log("🚀 ~ Home ~ users:", users)
   const deleteUser = useDeleteUser();
 
   if (loading) {

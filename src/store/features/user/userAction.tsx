@@ -32,7 +32,7 @@ type UsersAction =
 
 // Initial State
 const initialState: UseUsersResult = {
-  users: null,
+  users: [],
   loading: true,
   error: null,
 };

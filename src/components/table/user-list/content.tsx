@@ -1,59 +1,71 @@
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
-import { Typography, Button } from "@mui/material";
-import { Box } from "@mui/system";
+import { Typography, Button, IconButton, Box } from "@mui/material";
+import { IconEdit, IconEye } from "@tabler/icons-react";
+
 import { TableContent } from "@/components/base/table";
 import { useGetUsers } from "@/hooks/useGetUser";
+import { User } from "@/utils/interface";
 const emptyTicket = "/assets/images/ticket-client/empty_ticket.png";
 
-const TicketListContent: React.FC = () => {
+const UserListContent: React.FC = () => {
   const router = useRouter();
-  const { users, loading, error } = useGetUsers();
-
+  const { users: data, loading, error } = useGetUsers();
 
   const renderOptions = {
-    text: "Aksi",
+    text: "Actions",
     show: true,
-    render: (rowData: any) => (
-      <Box sx={{ display: "flex", flexDirection: "row", gap: "4px" }}>
-        <Button
-          variant="outlined"
+    render: (data) => (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "4px",
+          justifyContent: "center",
+        }}
+      >
+        <IconButton sx={{ bgcolor: "orange", borderRadius: "6px" }}>
+          <IconEdit color={"white"} size={22} />
+        </IconButton>
+
+        <IconButton
           onClick={() => {
-            router.push(`/admin/ticketing/${rowData?.uuid}`);
+            router.push(`/users/${data?.id}`);
           }}
-          sx={{ width: "80px", height: "30px", borderRadius: "5px" }}
+          sx={{ bgcolor: "blue", borderRadius: "10px" }}
         >
-          Detail
-        </Button>
+          <IconEye color="white" />
+        </IconButton>
       </Box>
     ),
   };
 
   const headersColumns = [
     {
-      text: "Tiket ID",
-      value: (data: any) => data?.id,
-      id: "tiket_id",
+      text: "User Name",
+      value: (data: any) => data?.username,
+      id: "user_name_id",
     },
     {
-      text: "Kendala",
-      value: (data: any) => data?.m_kategori_tiket?.nama,
-      id: "Kendala",
+      text: "Name",
+      value: (data: any) => data?.name,
+      id: "name",
     },
     {
-      text: "No. Resi",
-      value: (data: any) => data?.order?.nomor_resi ?? "-",
-      id: "referensi",
+      text: "Email",
+      value: (data: any) => data?.email,
+      id: "emial",
     },
     {
-      text: "Pembeli",
-      value: (data: any) => data?.order?.m_pelanggan?.name ?? "-",
-      id: "referensi",
+      text: "Address",
+      value: (data: any) =>
+        `${data.address.street},${data.address.suite},${data.address.city}`,
+      id: "address",
     },
     {
-      text: "Status Tracking",
-      value: (data: any) => data?.order?.m_status_order?.name,
-      id: "nominal",
+      text: "Phone Number",
+      value: (data: any) => data?.phone,
+      id: "phone_number",
     },
   ];
 
@@ -61,10 +73,13 @@ const TicketListContent: React.FC = () => {
     <TableContent
       identityKey="id"
       headers={headersColumns}
-      caption="Tidak ada data tiket yang dapat ditampilkan"
+      caption="Tidak ada data user yang dapat ditampilkan"
       icon={emptyTicket}
-      actionOptions={renderOptions} data={[]} showNoDataImage={false}    />
+      actionOptions={renderOptions}
+      data={loading ? [] : data}
+      showNoDataImage={false}
+    />
   );
 };
 
-export default TicketListContent;
+export default UserListContent;

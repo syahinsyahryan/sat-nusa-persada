@@ -14,6 +14,7 @@ import {
   tableCellClasses,
 } from "@mui/material";
 import { TableContentProps } from "@/utils/interface";
+import { grey } from "@mui/material/colors";
 
 const StyledTableCell = styled(TableCell)<{ color?: string }>(
   ({ theme, color }) => ({
@@ -190,11 +191,9 @@ export const TableContent: FC<TableContentProps> = ({
               </StyledTableCell>
             ))}
             {isShowAction && (
-              <TableCell key="action">
-                <Typography variant="body2">
-                  <Box display="flex" alignItems="center">
-                    {actionOptions.text}
-                  </Box>
+              <TableCell key="action" sx={{ bgcolor: "#EEEEEE" }}>
+                <Typography variant="body1" textAlign="center">
+                  {actionOptions.text}
                 </Typography>
               </TableCell>
             )}

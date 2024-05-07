@@ -22,7 +22,7 @@ export interface User {
   name: string;
   username: string;
   email: string;
-  address: Address;
+  // address: Address;
   phone: string;
   // website: string;
   // company: Company;
@@ -74,7 +74,7 @@ export interface ErrorType {
   message: string;
 }
 export interface UseUsersResult {
-  users: User[] | null;
+  users: User[];
   loading: boolean;
   error: string | null;
 }

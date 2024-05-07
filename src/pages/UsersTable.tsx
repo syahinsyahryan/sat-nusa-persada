@@ -9,6 +9,10 @@ import Title from "../components/Title/Title";
 import { useGetUsers } from "@/hooks/useGetUser";
 import CircularProgress from "@mui/material/CircularProgress";
 import { User } from "@/utils/interface";
+import { TableContentHeader } from "@/components/base/table";
+import { Stack, Typography, Box } from "@mui/material";
+import UserListHeader from "@/components/table/user-list/header";
+import UserListContent from "@/components/table/user-list/content";
 
 export default function Orders() {
   const { users, loading, error } = useGetUsers();
@@ -41,30 +45,9 @@ export default function Orders() {
     );
   }
   return (
-    <React.Fragment>
-      <Title>Users</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Username</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell>Phone</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((each: User) => (
-            <TableRow key={each.id}>
-              <TableCell>{each.username}</TableCell>
-              <TableCell>{each.name}</TableCell>
-              <TableCell>{each.email}</TableCell>
-              <TableCell>{`${each.address.street}, ${each.address.suite}, ${each.address.city}, ${each.address.zipcode}`}</TableCell>
-              <TableCell>{each.phone}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </React.Fragment>
+    <>
+      <UserListHeader />
+      <UserListContent />
+    </>
   );
 }

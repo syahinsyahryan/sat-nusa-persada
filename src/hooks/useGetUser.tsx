@@ -12,7 +12,15 @@ export const useGetUsers = (): UseUsersResult => {
     const fetchData = async () => {
       try {
         const response: AxiosResponse<User[]> = await getUser();
-        setUsers(response.data);
+        const parsedData = response.data.map((each: User) => ({
+          id: each.id,
+          username: each.username,
+          name: each.name,
+          email: each.email,
+          address: each.address,
+          phone: each.phone,
+        }));
+        setUsers(parsedData);
       } catch (error) {
         setError("Failed to fetch users. Please try again later.");
       } finally {

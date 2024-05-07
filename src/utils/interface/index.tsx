@@ -24,8 +24,8 @@ export interface User {
   email: string;
   address: Address;
   phone: string;
-  website: string;
-  company: Company;
+  // website: string;
+  // company: Company;
 }
 
 export interface Notification {
@@ -78,7 +78,7 @@ export interface UseUsersResult {
   loading: boolean;
   error: string | null;
 }
-export interface ToDo{
+export interface ToDo {
   userId: number;
   id: number;
   title: string;

@@ -72,7 +72,7 @@ export const TableContentFooter: FC<{
   onChangeLimit,
   totalData,
 }) => {
-  const pageSize = [10, 50, 100, 200, 500];
+  const pageSize = [2, 5, 10];
   const theme = useTheme();
   const handlePageChange = (e: React.ChangeEvent<unknown>, n: number) => {
     onPageChange(n);

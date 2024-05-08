@@ -4,9 +4,14 @@ import { User } from "../utils/interface";
 const urlEndPoint = "https://jsonplaceholder.typicode.com";
 const userURL = `${urlEndPoint}/users`;
 
-export const getUser = async (): Promise<AxiosResponse<User[]>> => {
+export const getUser = async (
+  currentPage: number,
+  pageSize: number
+): Promise<AxiosResponse<User[]>> => {
   try {
-    const response = await axios.get<User[]>(userURL);
+    const response = await axios.get<User[]>(
+      `${userURL}?_page=${currentPage}&_limit=${pageSize}`
+    );
     return response;
   } catch (error) {
     throw new Error("Failed to fetch users. Please try again later.");

@@ -13,9 +13,10 @@ import { TableContentHeader } from "@/components/base/table";
 import { Stack, Typography, Box } from "@mui/material";
 import UserListHeader from "@/components/table/user-list/header";
 import UserListContent from "@/components/table/user-list/content";
+import UserListFooter from "@/components/table/user-list/footer";
 
 export default function Orders() {
-  const { users, loading, error } = useGetUsers();
+  const { users, loading, error } = useGetUsers(5, 2);
   if (loading) {
     return (
       <div
@@ -47,7 +48,8 @@ export default function Orders() {
   return (
     <>
       <UserListHeader />
-      <UserListContent />
+      <UserListContent users={users} />
+      <UserListFooter />
     </>
   );
 }

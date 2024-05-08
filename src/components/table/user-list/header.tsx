@@ -51,6 +51,7 @@ const UserListHeader: FC = () => {
 
     console.log("User data:", user);
     insertUser(user);
+
     handleCloseModal();
   };
 

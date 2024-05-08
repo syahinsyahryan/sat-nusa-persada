@@ -3,21 +3,26 @@ import { getUser } from "@/api";
 import { UseUsersResult, User } from "@/utils/interface";
 import { AxiosResponse } from "axios";
 
-export const useGetUsers = (): UseUsersResult => {
-  const [users, setUsers] = useState<User[] | null>(null);
+export const useGetUsers = (
+  currentPage: number,
+  pageSize: number
+): UseUsersResult => {
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response: AxiosResponse<User[]> = await getUser();
+        const response: AxiosResponse<User[]> = await getUser(
+          currentPage,
+          pageSize
+        );
         const parsedData = response.data.map((each: User) => ({
           id: each.id,
           username: each.username,
           name: each.name,
           email: each.email,
-          address: each.address,
           phone: each.phone,
         }));
         setUsers(parsedData);
@@ -31,7 +36,7 @@ export const useGetUsers = (): UseUsersResult => {
     fetchData();
 
     return () => {};
-  }, []);
+  }, [currentPage, pageSize]);
 
   return { users, loading, error };
 };

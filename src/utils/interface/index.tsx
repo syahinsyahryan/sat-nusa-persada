@@ -77,6 +77,7 @@ export interface UseUsersResult {
   users: User[];
   loading: boolean;
   error: string | null;
+  totalCount: number;
 }
 export interface ToDo {
   userId: number;

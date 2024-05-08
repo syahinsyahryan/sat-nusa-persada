@@ -8,7 +8,6 @@ export const useGetUsers = (
   pageSize: number
 ): UseUsersResult => {
   const [users, setUsers] = useState<User[]>([]);
-  const [totalData, setTotalData] = useState();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,8 +18,6 @@ export const useGetUsers = (
           currentPage,
           pageSize
         );
-        const headers = response.headers;
-        const totalCount = headers.get("X-Total-Count");
         const parsedData = response.data.map((each: User) => ({
           id: each.id,
           username: each.username,
@@ -28,7 +25,6 @@ export const useGetUsers = (
           email: each.email,
           phone: each.phone,
         }));
-        setTotalData(totalCount);
         setUsers(parsedData);
       } catch (error) {
         setError("Failed to fetch users. Please try again later.");
